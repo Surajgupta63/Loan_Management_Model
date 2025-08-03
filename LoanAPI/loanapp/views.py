@@ -9,8 +9,8 @@ import joblib
 
 def approvereject(unit):
     try:
-        model = joblib.load("D:\\BankBuddy Intern\\Loan Management\\loan_model.pkl")
-        scaler = joblib.load("D:\\BankBuddy Intern\\Loan Management\\scalers.pkl")
+        model = joblib.load("D:\\BankBuddy Intern\\Loan_Management_Model\\loan_model.pkl")
+        scaler = joblib.load("D:\\BankBuddy Intern\\Loan_Management_Model\\scalers.pkl")
         X = scaler.transform(unit)
         y_pred = model.predict(X)
         y_pred = (y_pred > 0.55)
@@ -21,7 +21,7 @@ def approvereject(unit):
         return Response(e.args[0], status=status.HTTP_400_BAD_REQUEST)
 
 def ohevalue(df):
-    ohe_col = joblib.load("D:\\BankBuddy Intern\\Loan Management\\allcol.pkl")
+    ohe_col = joblib.load("D:\\BankBuddy Intern\\Loan_Management_Model\\allcol.pkl")
     cat_column = ['Gender', 'Married', 'Education', 'Self_Employed', 'Property_Area']
     df_processed = pd.get_dummies(df, columns=cat_column)
     new_dict = {}
@@ -61,4 +61,4 @@ def customerForm(request):
             messages.success(request, loanStatus)
 
     form = ApprovalForm()
-    return render(request, 'myform.html', {'form': form})
+    return render(request, 'index.html', {'form': form})
